@@ -1,0 +1,45 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: chat-exporter
+  namespace: chat-automation
+spec:
+  schedule: "0 3 * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      activeDeadlineSeconds: 7200
+      template:
+        spec:
+          serviceAccountName: chat-exporter
+          restartPolicy: OnFailure
+          volumes:
+            - name: secrets-store
+              csi:
+                driver: secrets-store.csi.k8s.io
+                readOnly: true
+                volumeAttributes:
+                  secretProviderClass: vault-chat-secrets
+            - name: export-pvc
+              persistentVolumeClaim:
+                claimName: chat-exports-pvc
+          containers:
+            - name: exporter
+              image: chat-exporter:latest
+              env:
+                - name: OUTPUT_DIR
+                  value: "/data/exports"
+              volumeMounts:
+                - name: secrets-store
+                  mountPath: /var/run/secrets/tokens
+                  readOnly: true
+                - name: export-pvc
+                  mountPath: /data
+              resources:
+                requests:
+                  memory: "512Mi"
+                  cpu: "200m"
+                limits:
+                  memory: "1Gi"
+                  cpu: "500m"

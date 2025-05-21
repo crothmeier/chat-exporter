@@ -1,2 +1,16 @@
-# chat-exporter
-📦 Fully automated nightly exports of ChatGPT &amp; Claude conversations to JSON, Markdown, and PDF. Runs securely and reliably as a containerized CronJob on a Kubernetes (k3s) GPU cluster with Playwright and Claude Code integration.
+# Chat Exporter
+
+Automated nightly export of ChatGPT & Claude conversations to JSON/Markdown/PDF,
+scheduled via k3s CronJob at 03:00 (America/New_York).
+
+## Quickstart
+```bash
+git clone <repo>
+cd chat-exporter
+make venv
+make test-run  # local headless test
+```
+
+See `k8s/` for deployment manifests and `.gitlab-ci.yml` for CI pipeline.
+
+_Generated 2025-05-21_
