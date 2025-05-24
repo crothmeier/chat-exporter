@@ -64,4 +64,7 @@ if __name__ == '__main__':
     if args.once:
         run_once()
     else:
-        run_once()
+        while True:
+            run_once()
+            log.info('Sleeping for 24 hours before next export run')
+            time.sleep(86400)
