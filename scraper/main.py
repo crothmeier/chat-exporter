@@ -36,7 +36,9 @@ def md_to_pdf(md_txt, out_path):
 
 def save(conv, base, plat):
     title = re.sub(r'[^\w\-]', '_', conv['title'])[:50]
-    ts = datetime.now().strftime('%H%M%S')
+    # Include microseconds to avoid filename collisions when multiple
+    # conversations are saved within the same second.
+    ts = datetime.now().strftime('%H%M%S_%f')
     fn = f'{title}_{ts}'
     json_path = base/plat/'json'/f'{fn}.json'
     md_path   = base/plat/'markdown'/f'{fn}.md'
