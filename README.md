@@ -11,6 +11,10 @@ make venv
 make test-run  # local headless test
 ```
 
+## Output Directory
+Exports are written to `${OUTPUT_DIR:-/tmp/exports}/<date>/`. The `outputs` rule
+shows where today's export will be saved.
+
 See `k8s/` for deployment manifests and `.gitlab-ci.yml` for CI pipeline.
 
 _Generated 2025-05-21_
