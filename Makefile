@@ -4,4 +4,4 @@ venv:
 test-run:
 	python -m scraper.main --once
 outputs:
-	@echo "See ./_exports/`date +%F` for results"
+	@echo "See ${OUTPUT_DIR:-/tmp/exports}/`date +%F` for results"
