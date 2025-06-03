@@ -26,7 +26,7 @@ spec:
                 claimName: chat-exports-pvc
           containers:
             - name: exporter
-              image: chat-exporter:latest
+              image: registry.example.com/chat-exporter:latest
               env:
                 - name: OUTPUT_DIR
                   value: "/data/exports"
